@@ -20,7 +20,7 @@ task :update do
 end
 
 desc "Generate blog files"
-task :generate do
+task :generate => [:update] do
   Jekyll::Site.new(Jekyll.configuration({
     "source"      => "_source",
     "destination" => "_site"

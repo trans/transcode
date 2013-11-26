@@ -4,15 +4,17 @@ Built on [Jekyll Incorporated](http://blog.sendtoinc.com)
 
 ## Usage
 
-One-time:
+After an initial clone run one time only:
 
     rake setup
 
-Then as needed:
+This will run `bundle install` and will clone the wiki to `_wiki`.
+
+After editing posts or other files run as needed:
 
     rake generate
 
-To publish:
+To publish the site run:
 
     rake publish
 
