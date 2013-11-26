@@ -2,15 +2,24 @@
 
 Built on [Jekyll Incorporated](http://blog.sendtoinc.com)
 
-## Installation & Usage
+## Usage
 
-    bundle install
+One-time:
+
     rake setup
-    jekyll serve --watch
+
+Then as needed:
+
+    rake generate
+
+To publish:
+
+    rake publish
+
 
 ## Configuration
 
-Edit: _config.yml (general options), main.css (theme colors &amp; fonts)
+Edit _config.yml (general options) and main.css (theme colors &amp; fonts)
 
 ```
 _config.yml
@@ -21,18 +30,15 @@ _assets/
 
 _Note: when editing _config.yml, you need to restart jekyll to see the changes.__
 
-    
-## Publish to Github Pages
 
-1. Add your domain to _CNAME_
-2. Edit your repo address at _Rakefile_
+## NOTES
     
-Run rake task. **NOTE: It will deploy the generated site to _gh-pages_ branch overwriting it**    
-``` 
-rake site:publish
-```
+Add domain to _CNAME_ if ever needed.
+
 
 ## Copyright and license
+
+TRANSCODE, Copyright (cc) 2013 trans
 
 Jekyll Incorporated, Copyright 2013 Kippt Inc. under [The MIT License ](LICENSE)
 
