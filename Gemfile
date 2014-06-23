@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'jekyll'
 gem 'jekyll-assets'
-gem 'jekyll-transform'
+gem 'jekyll-gollum'
 gem 'maruku'
 gem 'rake'
 gem 'sass'
