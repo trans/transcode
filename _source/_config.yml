@@ -100,7 +100,7 @@ inc:
   title:        "TRANSCODE"
   subtitle:     "Trans Technology and Programming Blog"
   cover_image:  blog-cover.jpg
-  logo:         trans-logo.png
+  logo:          trans-logo.png
 
   # Company information
   company:      TRANS
