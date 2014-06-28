@@ -5,43 +5,83 @@ require "jekyll"
 
 # Change your GitHub reponame eg. "kippt/jekyll-incorporated"
 GITHUB_REPONAME = "trans/trans.github.com"
+GH_PAGES = false
 
-desc "Bundle install and clone wiki."
+desc "bundle install and clone site and wiki"
 task :setup do
-  sh "bundle install"
-  sh "git clone git@github.com:#{GITHUB_REPONAME}.wiki.git _wiki"
+  system "bundle install"
+  get_wiki
+  get_site
 end
 
-desc "Update wiki."
+desc "update wiki"
 task :update do
-  Dir.chdir("_wiki") do
-    sh "git pull origin master"
+  $stderr.puts "[UPDATE]"
+
+  if File.exist?("_site/.git")
+    Dir.chdir("_site") do
+      system "git pull origin master"
+    end
+  else
+    get_site
+  end
+
+  if File.exist?('_wiki/.git')
+    Dir.chdir("_wiki") do
+      system "git pull origin master"
+    end
+  else
+    get_wiki
   end
 end
 
-desc "Generate blog files"
-task :generate => [:update] do
+desc "generate blog files"
+task :build => [:update] do
+  $stderr.puts "[BUILD]"
   Jekyll::Site.new(Jekyll.configuration({
     "source"      => "_source",
     "destination" => "_site"
   })).process
 end
 
-desc "Generate and publish site"
-task :publish => [:generate] do
+desc "build and deploy site"
+task :deploy => [:build] do
+  $stderr.puts "[DEPLOY]"
+  Dir.chdir "_site" do
+    message = "Site updated at #{Time.now.utc}"
+    #unless File.exist?(".git")
+    #  system "git init"
+    #  system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
+    #end
+    #system "git pull origin master"
+    system "git add ."
+    system "git commit -m #{message.inspect}"
+    if GH_PAGES
+      system "git push origin master:refs/heads/gh-pages --force"
+    else
+      system "git push origin master"
+    end
+  end
+end
+
+desc "build and deploy site via copy"
+task :publish => [:build] do
   Dir.mktmpdir do |tmp|
     cp_r "_site/.", tmp
     Dir.chdir tmp do
-      unless File.exist?(".git")
-        system "git init"
-        system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
-      end
-      system "git pull origin master"
-      system "git add ."
       message = "Site updated at #{Time.now.utc}"
+      #unless File.exist?(".git")
+      #  system "git init"
+      #  system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
+      #end
+      #system "git pull origin master"
+      system "git add ."
       system "git commit -m #{message.inspect}"
-      #system "git push origin master:refs/heads/gh-pages --force"
-      system "git push origin master"
+      if GH_PAGES
+        system "git push origin master:refs/heads/gh-pages --force"
+      else
+        system "git push origin master"
+      end
     end
   end
 end
@@ -60,3 +100,16 @@ end
 #  end
 #end
 
+#
+def get_wiki
+  unless File.directory?('_wiki')
+    system "git clone git@github.com:#{GITHUB_REPONAME}.wiki.git _wiki"
+  end
+end
+
+#
+def get_site
+  unless File.directory?('_site')
+    system "git clone git@github.com:#{GITHUB_REPONAME}.git _site"
+  end
+end

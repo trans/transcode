@@ -1,6 +1,6 @@
 .DS_Store
 .sass-cache
-/_site/
-/_wiki/
+_site/
+_wiki/
 *.lock
 
