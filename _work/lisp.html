@@ -1,0 +1,21 @@
+<html>
+<head>
+  <style>
+    body { font-family: monospace; font-size: 1.15em; }
+    .c1 { color: red; font-weight: bold; }
+    .c2 { color: green; font-weight: bold; }
+    .c3 { color: blue; font-weight: bold; }
+    .c4 { color: purple; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<pre>
+  <span class="c1">(</span><b>define</b> <span class="c2">(</span>checker p1 p2<span class="c2">)</span>
+    <span class="c2">(</span><b>let</b> <span class="c3">(</span>[p12 <span class="c4">(</span>hc-append p1 p2<span class="c4">)</span>]
+          [p21 <span class="c4">(</span>hc-append p2 p1<span class="c4">)</span>]<span class="c3">)</span>
+      <span class="c3">(</span>vc-append p12 p21<span class="c3">)</span><span class="c2">)</span><span class="c1">)</span>
+</pre>
+
+</body>
+<html>
