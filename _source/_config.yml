@@ -87,11 +87,14 @@ gollum:
   folder: '../_wiki'
   page_yaml:
     layout: page
-    author: trans
+    author:
+      name: trans
+      link: http://trans.github.com
   post_yaml:
     layout: post
-    author: trans
-
+    author:
+      name: trans
+      link: http://trans.github.com
 #
 # Jekyll-incorporated:
 #
